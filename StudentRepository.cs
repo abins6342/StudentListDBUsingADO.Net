@@ -81,10 +81,11 @@ namespace StudentListDBUsingADO.Net
             try
             {
                 _sqlConnection.Open();
-                var sqlCommand = new SqlCommand(cmdText: "Insert into Student (StudentName,StudentAge,StudentMark) Values(@Name,@Age,@Mark)",_sqlConnection);
+                var sqlCommand = new SqlCommand(cmdText: "Insert into Student (StudentName,StudentAge,StudentMark,CreationDate) Values(@Name,@Age,@Mark,@Date)",_sqlConnection);
                 sqlCommand.Parameters.AddWithValue("Name",student.Name);
                 sqlCommand.Parameters.AddWithValue("Age", student.Age);
                 sqlCommand.Parameters.AddWithValue("Mark", student.Mark);
+                sqlCommand.Parameters.AddWithValue("Date",DateTime.Now);
                 sqlCommand.ExecuteNonQuery();
 
                 return true;
@@ -130,10 +131,11 @@ namespace StudentListDBUsingADO.Net
             try
             {
                 _sqlConnection.Open();
-                var sqlCommand = new SqlCommand(cmdText: "Update Student Set StudentName=@Name, StudentMark=@Mark, ModificationDate=@Modification where StudentId=@Id", _sqlConnection);
+                var sqlCommand = new SqlCommand(cmdText: "Update Student Set StudentName=@Name, StudentMark=@Mark, StudentAge=@Age, ModificationDate=@Modification where StudentId=@Id", _sqlConnection);
 
                 sqlCommand.Parameters.AddWithValue("Id", student.Id);
                 sqlCommand.Parameters.AddWithValue("Name", student.Name);
+                sqlCommand.Parameters.AddWithValue("Age", student.Age);
                 sqlCommand.Parameters.AddWithValue("Mark", student.Mark);
                 sqlCommand.Parameters.AddWithValue("Modification", DateTime.Now);
 
